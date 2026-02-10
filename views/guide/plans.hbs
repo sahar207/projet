@@ -1,0 +1,24 @@
+<h2>Mes plans touristiques</h2>
+
+<div class="plans-list">
+  {{#each plans}}
+    <div class="plan-card">
+      <h3>{{this.titre}}</h3>
+      <p>{{this.description}}</p>
+      <div class="plan-details">
+        <span><strong>Dates:</strong> {{this.date_debut}} - {{this.date_fin}}</span>
+        <span><strong>Prix:</strong> {{this.prix}} TND</span>
+      </div>
+      <div class="plan-actions">
+        <a href="/guide/plans/{{this.id}}/edit" class="btn btn-small">Modifier</a>
+        <a href="/guide/plans/{{this.id}}/lieux" class="btn btn-small">Ajouter des lieux</a>
+        <a href="/guide/plans/{{this.id}}" class="btn btn-small">Voir détails</a>
+      </div>
+    </div>
+  {{/each}}
+  
+  {{#unless plans}}
+    <p>Vous n'avez pas encore créé de plans touristiques.</p>
+    <a href="/guide/plans/new" class="btn">Créer votre premier plan</a>
+  {{/unless}}
+</div>

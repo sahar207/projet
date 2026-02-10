@@ -1,0 +1,32 @@
+<!-- Destinations principales (gouvernorats) -->
+<section class="destinations">
+  <h2>Destinations principales</h2>
+  <div class="grid-cards">
+    {{#each gouvernorats}}
+      <div class="card">
+        <img src="{{this.image}}" alt="{{this.nom}}" />
+        <h3>{{this.nom}}</h3>
+        <a href="/plans/{{this.id}}">Voir les plans</a>
+      </div>
+    {{/each}}
+  </div>
+</section>
+
+<!-- Features -->
+<section class="features">
+  <h2>Services</h2>
+  <div class="grid-features">
+    <div class="feature">
+      <h3>Carte interactive</h3>
+      <p>Localisez les destinations et les plans des guides.</p>
+    </div>
+    <div class="feature">
+      <h3>Réservation en ligne</h3>
+      <p>Sélectionnez un programme et réservez en quelques clics.</p>
+    </div>
+    <div class="feature">
+      <h3>Diversité d'offres</h3>
+      <p>Culture, nature, histoire et plus encore.</p>
+    </div>
+  </div>
+</section>

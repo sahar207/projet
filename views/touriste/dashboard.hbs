@@ -1,0 +1,14 @@
+<h2>Bonjour, {{user.nom_complet}} !</h2>
+
+<h3>Mes voyages disponibles</h3>
+<div class="grid-plans">
+  {{#each plans}}
+    <div class="plan">
+      <h4>{{this.titre}}</h4>
+      <p>{{this.description}}</p>
+      <p>Prix: {{this.prix}} TND</p>
+      <p>Départ: {{this.date_debut}}, Retour: {{this.date_fin}}</p>
+      <a href="/reservations/create/{{this.id}}" class="btn">Réserver</a>
+    </div>
+  {{/each}}
+</div>

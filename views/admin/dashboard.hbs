@@ -1,0 +1,66 @@
+<h2>Tableau de bord Administrateur</h2>
+<p>Bienvenue, {{user.nom_complet}}!</p>
+
+<div class="admin-stats">
+  <h3>Statistiques</h3>
+  <div class="stats-grid">
+    <div class="stat-card">
+      <h4>Touristes</h4>
+      <p class="stat-number">{{stats.touristes || 0}}</p>
+    </div>
+    <div class="stat-card">
+      <h4>Guides</h4>
+      <p class="stat-number">{{stats.guides || 0}}</p>
+    </div>
+    <div class="stat-card">
+      <h4>Plans</h4>
+      <p class="stat-number">{{stats.plans || 0}}</p>
+    </div>
+    <div class="stat-card">
+      <h4>CV en attente</h4>
+      <p class="stat-number">{{stats.cvAttente || 0}}</p>
+    </div>
+  </div>
+</div>
+
+<div class="admin-actions">
+  <h3>Actions</h3>
+  <a href="/admin/cv-attente" class="btn">Valider les CV</a>
+  <a href="/admin/utilisateurs" class="btn">Gérer les utilisateurs</a>
+  <a href="/admin/plans" class="btn">Gérer les plans</a>
+</div>
+
+<style>
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.stat-card {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #007acc;
+  margin: 0.5rem 0;
+}
+
+.admin-actions {
+  margin: 2rem 0;
+}
+
+.admin-actions .btn {
+  display: inline-block;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+}
+</style>

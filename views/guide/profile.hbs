@@ -1,0 +1,31 @@
+<h2>Mon profil Guide</h2>
+
+<div class="profile-info">
+  <p><strong>Nom:</strong> {{user.nom_complet}}</p>
+  <p><strong>Email:</strong> {{user.email}}</p>
+  
+  {{#if guide.cv}}
+    <p><strong>CV:</strong> 
+      <a href="/{{guide.cv}}" target="_blank">Voir CV</a>
+      {{#if guide.cv_approved}}
+        ✅ Validé par admin
+      {{else}}
+        ⏳ En attente validation
+      {{/if}}
+    </p>
+  {{else}}
+    <p>📄 <a href="/guide/cv/upload">Upload mon CV</a></p>
+  {{/if}}
+
+  {{#if guide.abonnement_actif}}
+    <p>💳 Abonnement actif jusqu'au {{guide.abonnement_fin}}</p>
+  {{else}}
+    <p>💳 <a href="/guide/abonnement/payer">Activer abonnement</a></p>
+  {{/if}}
+</div>
+
+<form action="/guide/profile/update" method="POST">
+  <input name="telephone" placeholder="Téléphone" value="{{user.telephone}}">
+  <textarea name="bio" placeholder="Bio courte (optionnel)">{{user.bio}}</textarea>
+  <button type="submit">Mettre à jour</button>
+</form>

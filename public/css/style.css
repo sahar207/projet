@@ -1,0 +1,416 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+/* Navbar */
+.navbar {
+  background: #007acc;
+  color: white;
+  padding: 1rem 0;
+}
+
+.navbar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.navbar .logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.navbar .nav-links {
+  list-style: none;
+  display: flex;
+}
+
+.navbar .nav-links li {
+  margin-left: 1.5rem;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+}
+
+.navbar a:hover {
+  text-decoration: underline;
+}
+
+/* Hero Banner */
+.hero {
+  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7)),
+              url("/images/hero-tunis.jpg");
+  background-size: cover;
+  background-position: center;
+  padding: 6rem 1rem;
+  text-align: center;
+  color: white;
+}
+
+.hero h2 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Bouton principal */
+.btn {
+  display: inline-block;
+  padding: 0.7rem 1.5rem;
+  border-radius: 4px;
+  background: #007acc;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.btn:hover {
+  background: #005a9e;
+}
+
+/* Destinations */
+.destinations {
+  padding: 4rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.destinations h2 {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+}
+
+.grid-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card h3 {
+  padding: 0.7rem 1rem;
+  font-size: 1.2rem;
+}
+
+.card a {
+  display: block;
+  text-align: center;
+  padding: 0.7rem;
+  background: #007acc;
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.card a:hover {
+  background: #005a9e;
+}
+
+/* Fonctionnalités (features) */
+.features {
+  background-color: #e9ecef;
+  padding: 4rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.features h2 {
+  text-align: center;
+  font-size: 1.8rem;
+  margin-bottom: 2rem;
+}
+
+.grid-features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.feature {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1.5rem;
+  background: white;
+}
+
+/* Call to action (touristes) */
+.cta {
+  text-align: center;
+  padding: 4rem 1rem;
+  background: #007acc;
+  color: white;
+}
+
+.cta h2 {
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+}
+
+.cta p {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cta .btn {
+  background: white;
+  color: #007acc;
+}
+
+.cta .btn:hover {
+  background: #f8f9fa;
+}
+
+.error-message {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 0.75rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  border: 1px solid #f5c6cb;
+  text-align: center;
+}
+
+/* Guide Dashboard */
+.guide-actions {
+  margin: 2rem 0;
+}
+
+.guide-actions .btn {
+  display: inline-block;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+}
+
+.plan-form {
+  max-width: 600px;
+  margin: 2rem 0;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.plan-form textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-family: inherit;
+  resize: vertical;
+}
+
+.btn-secondary {
+  background: #6c757d;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background: #5a6268;
+}
+
+.plans-list {
+  margin: 2rem 0;
+}
+
+.plan-card {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.plan-card h3 {
+  color: #007acc;
+  margin-bottom: 0.5rem;
+}
+
+.plan-details {
+  display: flex;
+  gap: 2rem;
+  margin: 1rem 0;
+  color: #666;
+}
+
+.plan-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.btn-small {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
+}
+
+/* Tourist Dashboard */
+.grid-plans {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.plan {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.plan h4 {
+  color: #007acc;
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+}
+
+.plan p {
+  margin-bottom: 0.5rem;
+  color: #555;
+}
+
+.plan .btn {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background: #007acc;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.plan .btn:hover {
+  background: #005a9e;
+}
+
+/* Auth pages */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  padding: 2rem;
+}
+
+.auth-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.auth-card h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #007acc;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #007acc;
+}
+
+.auth-link {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+.auth-link a {
+  color: #007acc;
+  text-decoration: none;
+}
+
+.auth-link a:hover {
+  text-decoration: underline;
+}
+@media (max-width: 768px) {
+  .navbar .container {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .navbar .nav-links {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .navbar .nav-links li {
+    margin: 0.5rem 0;
+  }
+  
+  .hero h2 {
+    font-size: 2rem;
+  }
+  
+  .hero p {
+    font-size: 1rem;
+  }
+}

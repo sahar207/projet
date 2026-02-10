@@ -1,0 +1,158 @@
+<h2>Uploader mon CV</h2>
+
+<div class="cv-upload-container">
+  <div class="upload-info">
+    <h3>Instructions</h3>
+    <ul>
+      <li>Format accepté: PDF uniquement</li>
+      <li>Taille maximale: 5MB</li>
+      <li>Votre CV sera examiné par notre équipe administrative</li>
+      <li>La validation peut prendre 24-48h</li>
+    </ul>
+  </div>
+
+  <form action="/guide/cv/upload" method="POST" enctype="multipart/form-data" class="upload-form">
+    <div class="form-group">
+      <label for="cv">Sélectionner votre CV (PDF):</label>
+      <input type="file" id="cv" name="cv" accept=".pdf" required>
+      <small class="form-help">Seuls les fichiers PDF sont acceptés</small>
+    </div>
+    
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary">Uploader mon CV</button>
+      <a href="/guide/profile" class="btn btn-secondary">Annuler</a>
+    </div>
+  </form>
+
+  <div class="upload-status">
+    {{#if error}}
+      <div class="error-message">{{error}}</div>
+    {{/if}}
+    
+    {{#if success}}
+      <div class="success-message">{{success}}</div>
+    {{/if}}
+  </div>
+</div>
+
+<style>
+.cv-upload-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.upload-info {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.upload-info h3 {
+  margin-bottom: 1rem;
+  color: #333;
+}
+
+.upload-info ul {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.upload-info li {
+  margin-bottom: 0.5rem;
+  color: #666;
+}
+
+.upload-form {
+  margin-bottom: 2rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.form-group input[type="file"] {
+  width: 100%;
+  padding: 0.75rem;
+  border: 2px dashed #ddd;
+  border-radius: 8px;
+  background: #fafafa;
+  cursor: pointer;
+}
+
+.form-group input[type="file"]:hover {
+  border-color: #007acc;
+  background: #f0f8ff;
+}
+
+.form-help {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-start;
+}
+
+.btn-primary {
+  background: #007acc;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-primary:hover {
+  background: #005a9e;
+}
+
+.btn-secondary {
+  background: #6c757d;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.btn-secondary:hover {
+  background: #5a6268;
+}
+
+.error-message {
+  background: #f8d7da;
+  color: #721c24;
+  padding: 1rem;
+  border-radius: 4px;
+  border: 1px solid #f5c6cb;
+  margin-bottom: 1rem;
+}
+
+.success-message {
+  background: #d4edda;
+  color: #155724;
+  padding: 1rem;
+  border-radius: 4px;
+  border: 1px solid #c3e6cb;
+  margin-bottom: 1rem;
+}
+</style>

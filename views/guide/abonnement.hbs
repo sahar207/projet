@@ -1,0 +1,159 @@
+<h2>Abonnement Guide</h2>
+
+<div class="abonnement-container">
+  <div class="abonnement-card">
+    <div class="plan-header">
+      <h3>Plan Professionnel</h3>
+      <div class="price">29 TND<span>/mois</span></div>
+    </div>
+    
+    <div class="plan-features">
+      <h4>Avantages inclus:</h4>
+      <ul>
+        <li>✅ Création illimitée de plans touristiques</li>
+        <li>✅ Accès à tous les gouvernorats et délégations</li>
+        <li>✅ Validation prioritaire des CV</li>
+        <li>✅ Support client dédié</li>
+        <li>✅ Statistiques avancées</li>
+        <li>✅ Mise en avant des plans</li>
+      </ul>
+    </div>
+    
+    <div class="plan-actions">
+      {{#if user.abonnement_actif}}
+        <div class="active-subscription">
+          <span class="status-badge">✅ Abonnement actif</span>
+          <p><strong>Valide jusqu'au:</strong> {{user.abonnement_fin}}</p>
+          <a href="/guide/plans" class="btn">Accéder à mes plans</a>
+        </div>
+      {{else}}
+        <form action="/guide/abonnement/activer" method="POST">
+          <button type="submit" class="btn btn-primary">Activer l'abonnement</button>
+        </form>
+        <p class="payment-note">Paiement sécurisé via Stripe/PayPal</p>
+      {{/if}}
+    </div>
+  </div>
+  
+  <div class="info-section">
+    <h4>Pourquoi choisir l'abonnement ?</h4>
+    <p>En tant que guide professionnel, l'abonnement vous donne accès à toutes les fonctionnalités nécessaires pour développer votre activité et atteindre plus de touristes.</p>
+    
+    <div class="faq">
+      <h5>Questions fréquentes:</h5>
+      <details>
+        <summary>Puis-je annuler à tout moment ?</summary>
+        <p>Oui, vous pouvez annuler votre abonnement à tout moment. L'accès reste valide jusqu'à la fin de la période payée.</p>
+      </details>
+      <details>
+        <summary>Quels modes de paiement sont acceptés ?</summary>
+        <p>Nous acceptons Stripe, PayPal, et les cartes bancaires tunisiennes.</p>
+      </details>
+      <details>
+        <summary>Y a-t-il un engagement minimum ?</summary>
+        <p>Non, vous êtes libre de résilier quand vous le souhaitez sans frais.</p>
+      </details>
+    </div>
+  </div>
+</div>
+
+<style>
+.abonnement-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+}
+
+.abonnement-card {
+  background: white;
+  border: 2px solid #007acc;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.plan-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.plan-header h3 {
+  color: #007acc;
+  margin-bottom: 0.5rem;
+}
+
+.price {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #007acc;
+}
+
+.price span {
+  font-size: 1rem;
+  color: #666;
+}
+
+.plan-features ul {
+  list-style: none;
+  padding: 0;
+}
+
+.plan-features li {
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.plan-actions {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.active-subscription {
+  background: #d4edda;
+  border: 1px solid #c3e6cb;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.status-badge {
+  background: #28a745;
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+}
+
+.payment-note {
+  font-size: 0.9rem;
+  color: #666;
+  margin-top: 1rem;
+}
+
+.info-section {
+  background: #f8f9fa;
+  padding: 2rem;
+  border-radius: 8px;
+}
+
+.faq details {
+  margin: 1rem 0;
+}
+
+.faq summary {
+  cursor: pointer;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.faq summary:hover {
+  color: #007acc;
+}
+
+@media (max-width: 768px) {
+  .abonnement-container {
+    grid-template-columns: 1fr;
+  }
+}
+</style>

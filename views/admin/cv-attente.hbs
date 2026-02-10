@@ -1,0 +1,83 @@
+<h2>CV en attente de validation</h2>
+
+<div class="cv-list">
+  {{#each cvs}}
+    <div class="cv-card">
+      <h3>{{this.nom_complet}}</h3>
+      <div class="cv-info">
+        <p><strong>ID Guide:</strong> {{this.id_utilisateur}}</p>
+        {{#if this.cv}}
+          <p><strong>CV:</strong> <a href="/cvs/{{this.cv}}" target="_blank" class="btn btn-small">Voir le CV</a></p>
+        {{else}}
+          <p><strong>CV:</strong> <span class="no-cv">Non uploadé</span></p>
+        {{/if}}
+      </div>
+      <div class="cv-actions">
+        <form action="/admin/cv/{{this.id_utilisateur}}/approve" method="POST" style="display: inline;">
+          <button type="submit" class="btn btn-success">Approuver</button>
+        </form>
+        <button class="btn btn-danger" onclick="rejectCV({{this.id_utilisateur}})">Rejeter</button>
+      </div>
+    </div>
+  {{/each}}
+  
+  {{#unless cvs}}
+    <p>Aucun CV en attente de validation.</p>
+  {{/unless}}
+</div>
+
+<style>
+.cv-list {
+  margin: 2rem 0;
+}
+
+.cv-card {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.cv-info {
+  margin: 1rem 0;
+}
+
+.no-cv {
+  color: #666;
+  font-style: italic;
+}
+
+.cv-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-success {
+  background: #28a745;
+  color: white;
+}
+
+.btn-success:hover {
+  background: #218838;
+}
+
+.btn-danger {
+  background: #dc3545;
+  color: white;
+}
+
+.btn-danger:hover {
+  background: #c82333;
+}
+</style>
+
+<script>
+function rejectCV(idGuide) {
+  if (confirm('Êtes-vous sûr de vouloir rejeter ce CV ?')) {
+    // TODO: Implement reject functionality
+    alert('Fonctionnalité de rejet à implémenter');
+  }
+}
+</script>

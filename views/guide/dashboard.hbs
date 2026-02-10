@@ -1,0 +1,17 @@
+<h2>Dashboard Guide</h2>
+<p><strong>Guide:</strong> {{user.nom_complet}}</p>
+<p><strong>Nombre de plans:</strong> {{nb_plans}}</p>
+
+<h3>Derniers plans</h3>
+{{#each plans}}
+  <div class="plan">
+    <h4>{{this.titre}}</h4>
+    <p>{{this.description}}</p>
+    <p><small>{{this.date_debut}} → {{this.date_fin}} | {{this.prix}} TND</small></p>
+    <a href="/guide/plans/{{this.id}}/edit">Modifier</a>
+  </div>
+{{else}}
+  <p>Aucun plan pour le moment. <a href="/guide/plans/new">Créer un plan</a></p>
+{{/each}}
+
+<a href="/guide/plans/new" class="btn-primary">+ Nouveau plan</a>

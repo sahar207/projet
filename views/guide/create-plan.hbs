@@ -1,0 +1,33 @@
+<h2>Créer un nouveau plan touristique</h2>
+
+<form action="/guide/plans" method="POST" class="plan-form">
+  <div class="form-group">
+    <label for="titre">Titre du plan</label>
+    <input type="text" id="titre" name="titre" placeholder="Ex: Circuit Sud Tunisien" required>
+  </div>
+  
+  <div class="form-group">
+    <label for="description">Description</label>
+    <textarea id="description" name="description" placeholder="Décrivez votre plan touristique..." rows="4" required></textarea>
+  </div>
+  
+  <div class="form-row">
+    <div class="form-group">
+      <label for="date_debut">Date de début</label>
+      <input type="date" id="date_debut" name="date_debut" required>
+    </div>
+    
+    <div class="form-group">
+      <label for="date_fin">Date de fin</label>
+      <input type="date" id="date_fin" name="date_fin" required>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <label for="prix">Prix (TND)</label>
+    <input type="number" id="prix" name="prix" placeholder="250" min="0" step="0.01" required>
+  </div>
+  
+  <button type="submit" class="btn">Créer le plan</button>
+  <a href="/guide/plans" class="btn btn-secondary">Annuler</a>
+</form>

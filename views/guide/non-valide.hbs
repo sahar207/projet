@@ -1,0 +1,62 @@
+<h2>Compte en attente de validation</h2>
+
+<div class="validation-notice">
+  <div class="notice-icon">⏳</div>
+  <h3>Votre compte guide est en attente de validation</h3>
+  <p>{{message}}</p>
+  
+  <div class="validation-info">
+    <h4>Étapes de validation:</h4>
+    <ol>
+      <li>✅ Inscription complétée</li>
+      <li>⏳ CV uploadé</li>
+      <li>⏳ Validation par l'administrateur</li>
+      <li>🔓 Accès complet aux fonctionnalités</li>
+    </ol>
+  </div>
+  
+  <div class="actions">
+    <a href="/guide/profile" class="btn">Mettre à jour mon profil</a>
+    <a href="/logout" class="btn btn-secondary">Se déconnecter</a>
+  </div>
+</div>
+
+<style>
+.validation-notice {
+  max-width: 600px;
+  margin: 2rem auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.notice-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.validation-info {
+  margin: 2rem 0;
+  text-align: left;
+}
+
+.validation-info ol {
+  padding-left: 1.5rem;
+}
+
+.validation-info li {
+  margin: 0.5rem 0;
+}
+
+.actions {
+  margin-top: 2rem;
+}
+
+.actions .btn {
+  display: inline-block;
+  margin: 0.5rem;
+}
+</style>
