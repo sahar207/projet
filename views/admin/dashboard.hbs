@@ -4,22 +4,27 @@
 <div class="admin-stats">
   <h3>Statistiques</h3>
   <div class="stats-grid">
+
     <div class="stat-card">
       <h4>Touristes</h4>
-      <p class="stat-number">{{stats.touristes || 0}}</p>
+      <p class="stat-number">{{#if stats.touristes}}{{stats.touristes}}{{else}}0{{/if}}</p>
     </div>
+
     <div class="stat-card">
       <h4>Guides</h4>
-      <p class="stat-number">{{stats.guides || 0}}</p>
+      <p class="stat-number">{{#if stats.guides}}{{stats.guides}}{{else}}0{{/if}}</p>
     </div>
+
     <div class="stat-card">
       <h4>Plans</h4>
-      <p class="stat-number">{{stats.plans || 0}}</p>
+      <p class="stat-number">{{#if stats.plans}}{{stats.plans}}{{else}}0{{/if}}</p>
     </div>
+
     <div class="stat-card">
       <h4>CV en attente</h4>
-      <p class="stat-number">{{stats.cvAttente || 0}}</p>
+      <p class="stat-number">{{#if stats.cvAttente}}{{stats.cvAttente}}{{else}}0{{/if}}</p>
     </div>
+
   </div>
 </div>
 

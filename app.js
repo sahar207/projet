@@ -54,15 +54,18 @@ const checkGuideValidated = (req, res, next) => {
   if (req.session.user?.role !== 'GUIDE') return res.redirect("/login");
 
   db.query(
-    "SELECT cv_approved FROM guides WHERE id_utilisateur = ?",
+    "SELECT statut FROM guides WHERE id_utilisateur = ?",
     [req.session.user.id],
     (err, rows) => {
-      if (err || rows.length === 0 || !rows[0].cv_approved) {
+      if (err || rows.length === 0 || rows[0].statut !== 'ACTIF') {
+
         return res.status(403).render("guide/non-valide", {
           user: req.session.user,
-          message: "Votre CV doit être approuvé par l'administrateur avant de créer des plans"
+          message: "Votre compte est bloqué ou non validé"
         });
+
       }
+
       next();
     }
   );
@@ -103,54 +106,93 @@ app.get("/register", (req, res) => {
   res.render("auth/register");
 });
 
-app.post("/register", (req, res) => {
-  const { nom_complet, email, mot_de_passe, telephone, nationalite, role } = req.body;
+app.post("/register", async (req, res) => {
 
-  if (!email || !mot_de_passe) {
-    return res.render("auth/register", { error: "Email et mot de passe requis" });
+  const {
+    nom_complet,
+    email,
+    mot_de_passe,
+    telephone,
+    nationalite,
+    role,
+    admin_code
+  } = req.body;
+
+  // Protection Admin
+  if (role === "ADMIN") {
+    if (admin_code !== "ADMINE123") {
+      return res.render("auth/register", {
+        error: "Code Admin incorrect"
+      });
+    }
   }
 
-  const hashedPassword = bcrypt.hashSync(mot_de_passe, 10);
+  if (!email || !mot_de_passe) {
+    return res.render("auth/register", {
+      error: "Email et mot de passe requis"
+    });
+  }
 
-  db.query(
-    "INSERT INTO utilisateurs (nom_complet, email, mot_de_passe, role, est_actif) VALUES (?, ?, ?, ?, 1)",
-    [nom_complet, email, hashedPassword, role],
-    (err, result) => {
-      if (err) {
-        console.error("ERREUR utilisateurs:", err);
-        return res.status(500).send("Erreur serveur (inscription)");
+  try {
+
+    const hashed = await bcrypt.hash(mot_de_passe, 10);
+
+    db.query(
+      "INSERT INTO utilisateurs (nom_complet, email, mot_de_passe, role, est_actif) VALUES (?, ?, ?, ?, 1)",
+      [nom_complet, email, hashed, role],
+      (err, result) => {
+
+        if (err) {
+          console.error(err);
+          return res.render("auth/register", {
+            error: "Email déjà utilisé"
+          });
+        }
+
+        const id = result.insertId;
+
+        // TOURISTE
+        if (role === "TOURISTE") {
+
+          db.query(
+            "INSERT INTO touristes (id_utilisateur, nationalite, telephone) VALUES (?, ?, ?)",
+            [id, nationalite, telephone],
+            () => res.redirect("/login")
+          );
+
+        }
+
+        // GUIDE
+        else if (role === "GUIDE") {
+
+          db.query(
+            "INSERT INTO guides (id_utilisateur, cv, statut) VALUES (?, NULL, 'ACTIF')",
+            [id],
+            () => res.redirect("/login")
+          );
+
+        }
+
+        // ADMIN
+        else if (role === "ADMIN") {
+
+          // ما عندو table خاصة
+          res.redirect("/login");
+
+        }
+
       }
+    );
 
-      const id_utilisateur = result.insertId;
+  } catch (e) {
+    console.log(e);
+    res.render("auth/register", {
+      error: "Erreur serveur"
+    });
+  }
 
-      if (role === "TOURISTE") {
-        db.query(
-          "INSERT INTO touristes (id_utilisateur, nationalite, telephone) VALUES (?, ?, ?)",
-          [id_utilisateur, nationalite || null, telephone || null],
-          (err2) => {
-            if (err2) {
-              console.error("ERREUR touristes:", err2);
-              return res.status(500).send("Erreur Base touristes");
-            }
-            res.redirect("/login");
-          }
-        );
-      } else if (role === "GUIDE") {
-        db.query(
-          "INSERT INTO guides (id_utilisateur, cv, statut) VALUES (?, NULL, 'ACTIF')",
-          [id_utilisateur],
-          (err2) => {
-            if (err2) {
-              console.error("ERREUR guides:", err2);
-              return res.status(500).send("Erreur Base guides");
-            }
-            res.redirect("/login");
-          }
-        );
-      }
-    }
-  );
 });
+
 
 // ——————————————————————————
 // LOGIN
@@ -189,7 +231,11 @@ app.post("/login", (req, res) => {
     }
   );
 });
-
+app.get("/logout", (req, res) => {
+  req.session.destroy(()=>{
+    res.redirect("/login");
+  });
+});
 // ———————————————————
 // DASHBOARD TOURISTE
 // ———————————————————
@@ -391,23 +437,31 @@ app.get("/guide/abonnement", (req, res) => {
 
 // Guide activate subscription (simulation)
 app.post("/guide/abonnement/activer", (req, res) => {
-  if (!req.session.user || req.session.user.role !== 'GUIDE') return res.status(403);
 
-  // Ici tu intègres Stripe/PayPal
+  if (!req.session.user || req.session.user.role !== 'GUIDE') {
+    return res.redirect("/login");
+  }
+
   const id_guide = req.session.user.id;
 
   db.query(
-    "UPDATE guides SET abonnement_actif = 1, abonnement_fin = DATE_ADD(NOW(), INTERVAL 1 MONTH) WHERE id_utilisateur = ?",
+    `
+    INSERT INTO abonnements (id_guide, date_debut, date_fin, statut)
+    VALUES (?, CURDATE(), DATE_ADD(CURDATE(), INTERVAL 1 MONTH), 'ACTIF')
+    `,
     [id_guide],
     (err) => {
+
       if (err) {
-        console.error("ERREUR activation abonnement:", err);
-        return res.status(500).send("Erreur activation abonnement");
+        console.error("ERREUR abonnement:", err);
+        return res.status(500).send("Erreur abonnement");
       }
+
       res.redirect("/guide/abonnement");
     }
   );
 });
+
 
 // ———————————————————
 // ADMIN DASHBOARD
@@ -424,7 +478,8 @@ app.get("/admin/dashboard", (req, res) => {
       (SELECT COUNT(*) FROM touristes) as touristes,
       (SELECT COUNT(*) FROM guides) as guides,
       (SELECT COUNT(*) FROM plans_touristiques) as plans,
-      (SELECT COUNT(*) FROM guides WHERE cv_approved = 0) as cvAttente
+      (SELECT COUNT(*) FROM guides WHERE cv IS NULL) as cvAttente
+
   `, (err, stats) => {
     if (err) {
       console.error("ERREUR stats admin:", err);
@@ -433,7 +488,7 @@ app.get("/admin/dashboard", (req, res) => {
 
     res.render("admin/dashboard", {
       user: req.session.user,
-      stats: stats[0]
+      stats: stats || {}
     });
   });
 });
@@ -448,7 +503,8 @@ app.get("/admin/cv-attente", (req, res) => {
     SELECT u.nom_complet, g.id_utilisateur, g.cv 
     FROM guides g 
     JOIN utilisateurs u ON g.id_utilisateur = u.id 
-    WHERE g.cv_approved = 0
+    WHERE g.cv IS NULL
+
   `, (err, cvs) => {
     if (err) {
       console.error("ERREUR cv attente:", err);
@@ -468,7 +524,7 @@ app.post("/admin/cv/:id/approve", (req, res) => {
   const id_guide = req.params.id;
 
   db.query(
-    "UPDATE guides SET cv_approved = 1, date_validation = NOW() WHERE id_utilisateur = ?",
+    "UPDATE guides SET statut = 'ACTIF' WHERE id_utilisateur = ?",
     [id_guide],
     (err) => {
       if (err) {
